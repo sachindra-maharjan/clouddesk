@@ -1,0 +1,10 @@
+.vscode
+scratches/**
+.DS_Store
+node_modules
+dist  
+.angular
+
+
+backend/build
+backend/.gradle

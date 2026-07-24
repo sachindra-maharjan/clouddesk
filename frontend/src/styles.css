@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #14171C;
+  --color-canvas: #F4F5F3;
+  --color-paper: #FFFFFF;
+  --color-slate: #5B6472;
+  --color-slate-light: #8B93A1;
+  --color-steel: #2F5C8A;
+  --color-steel-dark: #234868;
+  --color-signal: #E68A2E;
+  --color-success: #3F8F5F;
+  --color-danger: #C4432E;
+  --color-soft: #E4E6E2;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+.pulse-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--color-signal);
+}
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--color-signal);
+  opacity: 0.6;
+  animation: pulse-ring 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot::after { animation: none; }
+}

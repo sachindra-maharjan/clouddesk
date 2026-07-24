@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: clouddesk
+      POSTGRES_USER: clouddesk
+      POSTGRES_PASSWORD: clouddesk
+    ports:
+      - "5432:5432"
+    volumes:
+      - clouddesk-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clouddesk"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: clouddesk
+      DB_USER: clouddesk
+      DB_PASSWORD: clouddesk
+      JWT_SECRET: local-dev-secret-change-in-real-envs
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+
+volumes:
+  clouddesk-db:
