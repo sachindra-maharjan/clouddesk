@@ -10,8 +10,8 @@ CREATE TABLE users (
 -- 5 provisioned users. Password for all seed accounts is "Password123!"
 -- Hash is BCrypt (strength 10); regenerate before using outside local/dev.
 INSERT INTO users (email, password_hash, display_name, role) VALUES
-    ('maria.alvarez@clouddesk.io', '$2a$10$7yq1E4Z1p0m5f4c1o1QO0e2K1Jc7bE2s0m5B1p8H1c1o1QO0e2K1J', 'Maria Alvarez', 'ADMIN'),
-    ('r.chen@clouddesk.io',        '$2a$10$7yq1E4Z1p0m5f4c1o1QO0e2K1Jc7bE2s0m5B1p8H1c1o1QO0e2K1J', 'R. Chen',       'MEMBER'),
-    ('j.kim@clouddesk.io',         '$2a$10$7yq1E4Z1p0m5f4c1o1QO0e2K1Jc7bE2s0m5B1p8H1c1o1QO0e2K1J', 'J. Kim',        'MEMBER'),
-    ('s.patel@clouddesk.io',       '$2a$10$7yq1E4Z1p0m5f4c1o1QO0e2K1Jc7bE2s0m5B1p8H1c1o1QO0e2K1J', 'S. Patel',      'MEMBER'),
-    ('m.alvarez.ops@clouddesk.io', '$2a$10$7yq1E4Z1p0m5f4c1o1QO0e2K1Jc7bE2s0m5B1p8H1c1o1QO0e2K1J', 'Ops Account',   'MEMBER');
+    ('maria.alvarez@clouddesk.io', '$2a$10$V5mPn3YDu89Qe53C7F0Jj.HZkOHy6qIMttj1DxcBg2xlHT9dwC5mC', 'Maria Alvarez', 'ADMIN'),
+    ('r.chen@clouddesk.io',        '$2a$10$V5mPn3YDu89Qe53C7F0Jj.HZkOHy6qIMttj1DxcBg2xlHT9dwC5mC', 'R. Chen',       'MEMBER'),
+    ('j.kim@clouddesk.io',         '$2a$10$V5mPn3YDu89Qe53C7F0Jj.HZkOHy6qIMttj1DxcBg2xlHT9dwC5mC', 'J. Kim',        'MEMBER'),
+    ('s.patel@clouddesk.io',       '$2a$10$V5mPn3YDu89Qe53C7F0Jj.HZkOHy6qIMttj1DxcBg2xlHT9dwC5mC', 'S. Patel',      'MEMBER'),
+    ('m.alvarez.ops@clouddesk.io', '$2a$10$V5mPn3YDu89Qe53C7F0Jj.HZkOHy6qIMttj1DxcBg2xlHT9dwC5mC', 'Ops Account',   'MEMBER');

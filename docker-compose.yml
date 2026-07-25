@@ -10,7 +10,7 @@ services:
     volumes:
       - clouddesk-db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U clouddesk"]
+      test: [ "CMD-SHELL", "pg_isready -U clouddesk" ]
       interval: 5s
       timeout: 5s
       retries: 10

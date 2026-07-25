@@ -1,0 +1,35 @@
+<form class="mt-8 space-y-5" [formGroup]="form" (ngSubmit)="onSubmit()">
+    @if (errorMessage()) {
+    <div class="rounded-lg bg-danger/10 text-danger text-sm px-3.5 py-2.5">
+        {{ errorMessage() }}
+    </div>
+    }
+
+    <div>
+        <label for="email" class="block text-sm font-medium text-ink mb-1.5">Work email</label>
+        <input id="email" type="email" formControlName="email" placeholder="you@clouddesk.io"
+            class="w-full rounded-lg border border-soft px-3.5 py-2.5 text-sm focus:border-steel focus:ring-1 focus:ring-steel outline-none">
+        @if(form.controls.email.invalid && form.controls.email.touched) {
+        <p class="text-xs text-danger mt-1">Enter a valid email address.</p>
+        }
+    </div>
+    <div>
+        <label for="password" class="block text-sm font-medium text-ink mb-1.5">Password</label>
+        <input id="password" type="password" formControlName="password" placeholder="••••••••"
+            class="w-full rounded-lg border border-soft px-3.5 py-2.5 text-sm focus:border-steel focus:ring-1 focus:ring-steel outline-none">
+        @if(form.controls.password.invalid && form.controls.password.touched) {
+        <p class="text-xs text-danger mt-1">Enter your password.</p>
+        }
+    </div>
+    <div class="flex items-center justify-between text-sm">
+        <label class="flex items-center gap-2 text-slate">
+            <input type="checkbox" formControlName="rememberMe" class="rounded border-soft text-steel focus:ring-steel">
+            Keep me signed in
+        </label>
+        <a href="#" class="text-steel hover:text-steel-dark font-medium">Forgot password?</a>
+    </div>
+    <button type="submit" [disabled]="!canSubmit()"
+        class="w-full bg-steel hover:bg-steel-dark text-white font-medium rounded-lg py-2.5 text-sm transition-colors">
+        {{ isLoading() ? 'Signing in...' : 'Sign in' }}
+    </button>
+</form>
