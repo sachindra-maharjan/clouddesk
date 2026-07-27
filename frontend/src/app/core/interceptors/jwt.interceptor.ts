@@ -21,7 +21,7 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
 
     return next(authorizeRequest).pipe(
         catchError((error) => {
-            if (error?.status === 401 && isLoginRequest) {
+            if (error?.status === 401 && !isLoginRequest) {
                 tokenStorage.clear();
                 router.navigateByUrl("/login");
             }

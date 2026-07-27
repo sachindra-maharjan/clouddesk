@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { LoginForm } from '../login-form/login-form';
 import { LoginCredentials } from '../../auth.model';
-import { AuthStore } from '../../login/auth.store';
+import { AuthStore } from '../../data-access/auth.store';
 
 @Component({
   selector: 'app-login-page',

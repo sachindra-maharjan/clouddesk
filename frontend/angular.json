@@ -17,14 +17,25 @@
             "browser": "src/main.ts",
             "polyfills": [],
             "tsConfig": "tsconfig.app.json",
-            "assets": [{ "glob": "**/*", "input": "public" }],
-            "styles": ["src/styles.css"],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
             "scripts": []
           },
           "configurations": {
             "production": {
               "budgets": [
-                { "type": "initial", "maximumWarning": "500kb", "maximumError": "1mb" }
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
               ],
               "outputHashing": "all"
             },
@@ -39,18 +50,22 @@
         "serve": {
           "builder": "@angular/build:dev-server",
           "configurations": {
-            "production": { "buildTarget": "clouddesk-frontend:build:production" },
-            "development": { "buildTarget": "clouddesk-frontend:build:development" }
+            "production": {
+              "buildTarget": "clouddesk-frontend:build:production"
+            },
+            "development": {
+              "buildTarget": "clouddesk-frontend:build:development"
+            }
           },
           "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "polyfills": [],
             "tsConfig": "tsconfig.spec.json",
-            "assets": [{ "glob": "**/*", "input": "public" }],
-            "styles": ["src/styles.css"]
+            "runner": "vitest",
+            "buildTarget": "::development",
+            "setupFiles": ["src/test-setup.ts"]
           }
         }
       }

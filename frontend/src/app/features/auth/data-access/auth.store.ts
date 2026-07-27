@@ -1,10 +1,10 @@
 
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
-import { AuthenticatedUser, AuthRole, LoginCredentials, LoginResponseDto } from '../auth.model';
+import { AuthenticatedUser, AuthRole, LoginCredentials, LoginResponseDto } from './../auth.model';
 import { computed, inject } from '@angular/core';
 import { TokenStorage } from '../../../core/services/token-storage';
 import { decodeJwtPayload } from '../../../core/utils/jwt';
-import { Auth } from '../data-access/auth';
+import { Auth } from './auth';
 import { Router } from '@angular/router';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, switchMap, tap } from 'rxjs';
@@ -68,7 +68,7 @@ export const AuthStore = signalStore(
         logout(): void {
             tokenStorage.clear();
             patchState(store, { user: null });
-            router.navigate(['/login']);
+            router.navigateByUrl('/login');
         }
     })),
     withHooks({

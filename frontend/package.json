@@ -6,6 +6,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:watch": "ng test --watch",
     "lint": "ng lint"
   },
   "private": true,
@@ -30,15 +31,10 @@
     "@angular/cli": "^22.0.0",
     "@angular/compiler-cli": "^22.0.0",
     "@tailwindcss/postcss": "^4.0.0",
-    "@types/jasmine": "~5.1.0",
-    "jasmine-core": "~5.4.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
+    "jsdom": "^30.0.0",
     "postcss": "^8.4.47",
     "tailwindcss": "^4.0.0",
-    "typescript": "~6.0.0"
+    "typescript": "~6.0.0",
+    "vitest": "^4.1.10"
   }
 }
