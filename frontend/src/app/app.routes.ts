@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 /**
  * Each feature below is added one at a time in Phase 3, in priority order:
@@ -18,6 +19,11 @@ export const routes: Routes = [
     path: 'login',
     loadChildren: () =>
       import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
+  },
+  {
+    path: 'home',
+    canActivate: [authGuard],
+    loadComponent: () => import('./shared/layout/home/home').then((m) => m.Home)
   },
   {
     path: '**',

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { LoginForm } from '../login-form/login-form';
 import { LoginCredentials } from '../../auth.model';
+import { AuthStore } from '../../login/auth.store';
 
 @Component({
   selector: 'app-login-page',
@@ -10,21 +11,11 @@ import { LoginCredentials } from '../../auth.model';
   styleUrl: './login-page.css',
 })
 export class LoginPage {
-  readonly loading = signal(false);
-  readonly errorMessage = signal<string | null>(null);
+
+  protected readonly authStore = inject(AuthStore);
 
   handleSubmit(credentials: LoginCredentials): void {
-    this.loading.set(true);
-    this.errorMessage.set(null);
-
-    setTimeout(() => {
-      this.loading.set(false);
-      if (credentials.email == "fail@clouddesk.io") {
-        this.errorMessage.set("Invalid email or password");
-        return;
-      }
-      console.log('Logged in as ', credentials.email);
-    }, 700);
+    this.authStore.login(credentials);
   }
 
 }

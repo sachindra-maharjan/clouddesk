@@ -1,10 +1,19 @@
+# System Directories
 .vscode
-scratches/**
 .DS_Store
-node_modules
-dist  
-.angular
 
+# Experimental or Testing
+scratches/**
+http
 
+# Frontend
+frontend/node_modules
+frontend/dist  
+frontend/.angular
+
+# Backend
 backend/build
 backend/.gradle
+
+# AI 
+superpowers

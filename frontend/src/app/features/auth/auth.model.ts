@@ -12,3 +12,8 @@ export interface AuthenticatedUser {
     displayName: string;
     role: AuthRole;
 }
+
+export interface LoginResponseDto {
+    token: string;
+    user: AuthenticatedUser;
+}

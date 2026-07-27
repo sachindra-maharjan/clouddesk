@@ -44,7 +44,7 @@
             <p class="text-sm text-slate mt-1">Use one of the five provisioned team accounts.</p>
 
             <div class="mt-8">
-                <app-login-form [isLoading]="loading()" [errorMessage]="errorMessage()"
+                <app-login-form [isLoading]="authStore.isLoading()" [errorMessage]="authStore.error()"
                     (submitCredentials)="handleSubmit($event)" />
             </div>
 

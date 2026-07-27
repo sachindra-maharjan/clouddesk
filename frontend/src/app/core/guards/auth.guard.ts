@@ -1,10 +1,16 @@
-import { CanActivateFn } from '@angular/router';
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { AuthStore } from '../../features/auth/login/auth.store';
 
 /**
- * SCAFFOLD PLACEHOLDER.
- * The Auth feature (Phase 3) replaces this with a real guard that reads
- * the auth Signal Store and redirects unauthenticated users to /login.
- * Currently allows everything through so routing can be exercised before
- * auth exists.
+ * Protects routes that require a signed-in user. Reads the AuthStore
+ * (already hydrated from a stored token, if any, via its onInit hook)
+ * rather than re-checking localStorage directly, so there's one source
+ * of truth for "am I logged in".
  */
-export const authGuard: CanActivateFn = () => true;
+export const authGuard: CanActivateFn = () => {
+    const authStore = inject(AuthStore);
+    const router = inject(Router);
+
+    return authStore.isAuthenticated() ? true : router.navigateByUrl("/login");
+};

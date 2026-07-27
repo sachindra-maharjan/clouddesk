@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-scaffold-home',
+  selector: 'app-home',
   template: `
     <main class="min-h-screen bg-ink text-white flex items-center justify-center px-6">
       <div class="text-center max-w-md">
@@ -15,4 +15,4 @@ import { Component } from '@angular/core';
     </main>
   `,
 })
-export class ScaffoldHome {}
+export class Home { }
