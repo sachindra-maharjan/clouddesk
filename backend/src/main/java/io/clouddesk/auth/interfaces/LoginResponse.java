@@ -4,7 +4,7 @@ import io.clouddesk.auth.domain.User;
 
 public record LoginResponse(String token, UserSummary user) {
 
-    public record UserSummary(String id, String email, String displayName, String role) {
+    public record UserSummary(String id, String email, String fullName, String role) {
     }
 
     public static LoginResponse from(String token, User user) {

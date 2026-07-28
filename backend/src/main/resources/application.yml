@@ -1,3 +1,6 @@
+server:
+  port: ${SERVER_PORT:8080}
+  
 spring:
   application:
     name: clouddesk-backend
@@ -19,9 +22,10 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
-
-server:
-  port: ${SERVER_PORT:8080}
+  servlet:
+    multipart:
+      max-file-size: 25MB
+      max-request-size: 26MB
 
 management:
   endpoints:
@@ -33,3 +37,6 @@ clouddesk:
   jwt:
     secret-key: ${JWT_SECRET:dev-only-change-me-dev-only-change-me}
     expiration-minutes: ${JWT_EXPIRATION_MINUTES:60}
+  files:
+    storage-root-dir: ${FILES_STORAGE_DIR:./data/uploads}
+    max-upload-size-bytes: 26214400

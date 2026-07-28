@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import io.clouddesk.auth.application.InvalidCredentialException;
+import io.clouddesk.files.application.FileAccessDeniedException;
+import io.clouddesk.files.application.FileNotFoundException;
+import io.clouddesk.files.application.InvalidFileMetadataException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -23,6 +26,21 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiError> handleInvalidCredentialsException(InvalidCredentialException e) {
         ApiError error = ApiError.of(e.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    public ResponseEntity<ApiError> handleFileNotFound(FileNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(e.getMessage()));
+    }
+
+    @ExceptionHandler(FileAccessDeniedException.class)
+    public ResponseEntity<ApiError> handleFileAccessDenied(FileAccessDeniedException e) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ApiError.of(e.getMessage()));
+    }
+
+    @ExceptionHandler(InvalidFileMetadataException.class)
+    public ResponseEntity<ApiError> handleInvalidFileMetadata(InvalidFileMetadataException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiError.of(e.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

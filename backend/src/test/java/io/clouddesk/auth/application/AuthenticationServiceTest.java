@@ -1,11 +1,5 @@
 package io.clouddesk.auth.application;
 
-import io.clouddesk.auth.application.AuthResult;
-import io.clouddesk.auth.application.AuthenticationService;
-import io.clouddesk.auth.application.InvalidCredentialException;
-import io.clouddesk.auth.application.LoginCommand;
-import io.clouddesk.auth.application.PasswordHasher;
-import io.clouddesk.auth.application.TokenIssuer;
 import io.clouddesk.auth.domain.Role;
 import io.clouddesk.auth.domain.User;
 import io.clouddesk.auth.domain.UserRepository;
@@ -13,7 +7,7 @@ import io.clouddesk.auth.domain.UserRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
