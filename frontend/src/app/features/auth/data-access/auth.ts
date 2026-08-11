@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
-import { AuthenticatedUser, LoginCredentials, LoginResponseDto } from '../auth.model';
+import { LoginCredentials, LoginResponseDto } from '../auth.model';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
 

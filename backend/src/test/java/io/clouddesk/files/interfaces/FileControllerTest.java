@@ -74,7 +74,8 @@ class FileControllerTest {
         MockMultipartFile file = new MockMultipartFile(
                 "file", "board-deck.pptx", "application/vnd.ms-powerpoint", "content".getBytes());
 
-        mockMvc.perform(multipart("/api/files", file)
+        mockMvc.perform(multipart("/api/files")
+                .file(file)
                 .param("displayName", "Q3 board deck")
                 .param("category", "PRESENTATION")
                 .param("visibility", "TEAM")
@@ -91,7 +92,8 @@ class FileControllerTest {
     void rejectsUploadWithoutAToken() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "notes.txt", "text/plain", "hi".getBytes());
 
-        mockMvc.perform(multipart("/api/files", file)
+        mockMvc.perform(multipart("/api/files")
+                .file(file)
                 .param("displayName", "Notes")
                 .param("category", "DOCUMENT")
                 .param("visibility", "TEAM"))
@@ -129,7 +131,8 @@ class FileControllerTest {
 
     private String uploadAs(String token, String displayName, String visibility) throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "f.txt", "text/plain", "hi".getBytes());
-        String response = mockMvc.perform(multipart("/api/files", file)
+        String response = mockMvc.perform(multipart("/api/files")
+                .file(file)
                 .param("displayName", displayName)
                 .param("category", "DOCUMENT")
                 .param("visibility", visibility)

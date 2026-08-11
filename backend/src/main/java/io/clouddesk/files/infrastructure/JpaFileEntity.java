@@ -7,6 +7,7 @@ import java.util.UUID;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -45,7 +46,7 @@ public class JpaFileEntity {
     @Column(nullable = false)
     private String visibility;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "file_tags", joinColumns = @JoinColumn(name = "file_id"))
     @Column(name = "tag")
     private List<String> tags;

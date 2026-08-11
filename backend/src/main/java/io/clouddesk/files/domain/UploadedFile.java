@@ -10,7 +10,7 @@ public record UploadedFile(
         FileVisibility visibility, List<String> tags, String notes, Instant uploadedAt) {
 
     public boolean isVisible(UUID requesterId) {
-        return visibility == FileVisibility.TEAM || ownerId == requesterId;
+        return visibility == FileVisibility.TEAM || ownerId.equals(requesterId);
     }
 
 }

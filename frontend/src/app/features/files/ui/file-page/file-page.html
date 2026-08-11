@@ -1,0 +1,7 @@
+<main class="p-6 space-y-6">
+    <app-upload-panel [loading]="filesStore.uploading()" [errorMessage]="filesStore.error()"
+        (upload)="handleUpload($event)" />
+    <app-file-list [files]="filesStore.items()" [filters]="filesStore.filters()" [totalItems]="filesStore.totalItems()"
+        [page]="filesStore.page()" [pageSize]="filesStore.pageSize()" (filterChange)="handleFilterChange($event)"
+        (download)="handleDownload($event)" (pageChange)="handlePageChange($event)" />
+</main>
