@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { map } from 'rxjs';
@@ -37,6 +37,18 @@ export class UploadPanel {
   );
 
   readonly canSubmit = computed(() => this.formValid() && this.selectedFile() != null && !this.loading());
+
+  private _wasLoading = false;
+
+  constructor() {
+    effect(() => {
+      const loading = this.loading();
+      if (this._wasLoading && !loading && !this.errorMessage()) {
+        this.resetAfterSuccess();
+      }
+      this._wasLoading = loading;
+    });
+  }
 
   onFileInputChange(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -89,6 +101,7 @@ export class UploadPanel {
       tags: '',
       notes: '',
     });
+    this.selectedFile.set(null);
   }
 
 }

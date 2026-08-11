@@ -1,0 +1,24 @@
+<div class="telemetry-panel rounded-xl overflow-hidden flex flex-col max-h-[560px]">
+    <div class="px-4 py-4 flex items-center justify-between shrink-0">
+        <h2 class="font-display font-semibold text-white text-sm">Live activity</h2>
+        <span class="pulse-dot"></span>
+    </div>
+    <div class="flex-1 overflow-y-auto thin-scroll">
+        @for (event of events(); track event.uploadedAt + event.displayName) {
+        <div class="telemetry-row flex items-center gap-3 px-4 py-3 text-sm">
+            <span class="pulse-dot shrink-0"></span>
+            <span class="font-mono text-slate-light text-xs w-16 shrink-0">
+                {{ event.uploadedAt | date: 'HH:mm:ss' }}
+            </span>
+            <span class="text-gray-200">
+                <span class="text-white font-medium">{{ event.ownerName }}</span>
+                uploaded {{ event.displayName }}
+            </span>
+        </div>
+        } @empty {
+        <div class="px-4 py-8 text-center text-slate-light text-sm">
+            No activity yet this session. Upload a file to see it appear here live.
+        </div>
+        }
+    </div>
+</div>

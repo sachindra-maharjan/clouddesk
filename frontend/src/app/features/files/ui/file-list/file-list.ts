@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { FileCategory, FileListFilters, FileSummary } from '../../files.models';
 
 @Component({
   selector: 'app-file-list',
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './file-list.html',
   styleUrl: './file-list.css',
 })

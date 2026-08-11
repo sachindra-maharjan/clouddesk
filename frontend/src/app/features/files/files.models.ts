@@ -37,3 +37,7 @@ export interface FilePage {
     pageSize: number;
     totalItems: number;
 }
+
+export type SortDirection = 'ASC' | 'DESC';
+
+export type FileSortField = 'DISPLAY_NAME' | 'SIZE_BYTES' | 'UPLOADED_AT';

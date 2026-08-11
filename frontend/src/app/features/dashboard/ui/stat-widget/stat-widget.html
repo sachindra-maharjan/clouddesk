@@ -1,0 +1,10 @@
+<div class="bg-paper border border-soft rounded-xl p-5">
+    <p class="text-xs font-medium text-slate-light uppercase tracking-wide">{{ label() }}</p>
+    <p class="font-mono text-3xl font-semibold mt-2">{{ value() }}</p>
+    @if (hint()) {
+    <p class="text-xs mt-1" [class.text-success]="hintColor() === 'success'"
+        [class.text-signal]="hintColor() === 'signal'" [class.text-slate]="hintColor() === 'slate'">
+        {{ hint() }}
+    </p>
+    }
+</div>

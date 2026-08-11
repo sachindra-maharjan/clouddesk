@@ -52,7 +52,7 @@ export const AuthStore = signalStore(
                                         user: response.user,
                                         isLoading: false,
                                     });
-                                    router.navigateByUrl('/home');
+                                    router.navigateByUrl('/dashboard');
                                 },
                                 error: () => {
                                     patchState(store, {

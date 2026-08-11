@@ -26,6 +26,11 @@ export const routes: Routes = [
     loadComponent: () => import('./shared/layout/home/home').then((m) => m.Home)
   },
   {
+    path: 'dashboard',
+    canActivate: [authGuard],
+    loadChildren: () => import('./features/dashboard/dashboard.routes').then(m => m.DASHBOARD_ROUTES)
+  },
+  {
     path: 'files',
     canActivate: [authGuard],
     loadChildren: () => import('./features/files/files.routes').then(m => m.FILES_ROUTES)

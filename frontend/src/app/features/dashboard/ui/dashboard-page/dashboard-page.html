@@ -1,0 +1,22 @@
+<main class="p-6 space-y-6 max-w-6xl mx-auto">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <app-stat-widget label="Total files" [value]="summary().totalFiles.toLocaleString()" hint="of workspace" />
+        <app-stat-widget label="Storage used"
+            [value]="(summary().totalStorageBytes / 1024 / 1024 / 1024).toFixed(1) + ' GB'" />
+        <app-stat-widget label="Active users" [value]="summary().activeUsers.toString()" hint="provisioned seats" />
+        <app-stat-widget label="Uploads this week" [value]="summary().filesUploadedThisWeek.toString()"
+            hint="▲ new activity" hintColor="signal" />
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 space-y-6">
+            <div class="bg-paper border border-soft rounded-xl p-5">
+                <h2 class="font-display font-semibold mb-4">Storage growth</h2>
+                <app-storage-trend-chart [points]="storageTrend()" />
+            </div>
+            <app-recent-files-table [files]="recentFiles()" [sortBy]="recentFilesSortBy()"
+                [sortDir]="recentFilesSortDir()" (sortChange)="handleSortChange($event)" />
+        </div>
+        <app-live-feed [events]="liveFeed()" />
+    </div>
+</main>
