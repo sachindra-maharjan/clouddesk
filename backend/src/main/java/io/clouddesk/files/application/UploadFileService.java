@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.UUID;
 
 import io.clouddesk.files.domain.FileRepository;
+import io.clouddesk.files.domain.FileUploadedEvent;
 import io.clouddesk.files.domain.UploadedFile;
+import io.clouddesk.shared.events.DomainEventPublisher;
 
 public class UploadFileService {
 
@@ -14,13 +16,15 @@ public class UploadFileService {
     private final FileStorage fileStorage;
     private final Clock clock;
     private final long maxUploadByteSize;
+    private final DomainEventPublisher domainEventPublisher;
 
     public UploadFileService(FileRepository fileRepository, FileStorage fileStorage, Clock clock,
-            long maxUploadByteSize) {
+            long maxUploadByteSize, DomainEventPublisher domainEventPublisher) {
         this.fileRepository = fileRepository;
         this.fileStorage = fileStorage;
         this.clock = clock;
         this.maxUploadByteSize = maxUploadByteSize;
+        this.domainEventPublisher = domainEventPublisher;
     }
 
     public UploadedFile upload(UploadFileCommand command) {
@@ -36,7 +40,12 @@ public class UploadFileService {
                 command.notes() == null ? "" : command.notes(),
                 Instant.now(clock));
 
-        return fileRepository.save(file);
+        UploadedFile saved = fileRepository.save(file);
+
+        domainEventPublisher.publish(new FileUploadedEvent(saved.displayName(), saved.ownerName(), saved.category(),
+                saved.sizeBytes(), saved.uploadedAt()));
+
+        return saved;
     }
 
     private void validate(UploadFileCommand command) {

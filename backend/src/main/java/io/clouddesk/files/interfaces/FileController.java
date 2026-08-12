@@ -27,7 +27,9 @@ import io.clouddesk.files.application.UploadFileCommand;
 import io.clouddesk.files.application.UploadFileService;
 import io.clouddesk.files.domain.FileCategory;
 import io.clouddesk.files.domain.FileQuery;
+import io.clouddesk.files.domain.FileSortField;
 import io.clouddesk.files.domain.FileVisibility;
+import io.clouddesk.files.domain.SortDirection;
 import io.clouddesk.shared.security.CurrentUserResolver;
 
 @RestController
@@ -70,9 +72,11 @@ public class FileController {
             @RequestParam(required = false) String search,
             @RequestParam(required = false) FileCategory category,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(required = false) FileSortField sortBy,
+            @RequestParam(required = false) SortDirection sortDir) {
         User currentUser = currentUserResolver.resolve();
-        FileQuery query = new FileQuery(currentUser.id(), search, category, page, size);
+        FileQuery query = new FileQuery(currentUser.id(), search, category, page, size, sortBy, sortDir);
         return FilePageResponse.from(listFilesService.list(query));
     }
 

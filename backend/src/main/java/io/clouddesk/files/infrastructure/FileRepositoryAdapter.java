@@ -1,11 +1,13 @@
 package io.clouddesk.files.infrastructure;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import io.clouddesk.files.domain.FileCategory;
 import io.clouddesk.files.domain.FileQuery;
 import io.clouddesk.files.domain.FileRepository;
 import io.clouddesk.files.domain.FileVisibility;
+import io.clouddesk.files.domain.SortDirection;
 import io.clouddesk.files.domain.UploadedFile;
 import io.clouddesk.shared.domain.PageResult;
 
@@ -42,11 +45,40 @@ public class FileRepositoryAdapter implements FileRepository {
                 .and(matchingSearch(query.search()))
                 .and(matchingCategory(query.fileCategory()));
 
-        PageRequest pageRequest = PageRequest.of(query.page(), query.pageSize());
+        PageRequest pageRequest = PageRequest.of(query.page(), query.pageSize(), resolveSort(query));
         Page<JpaFileEntity> page = springDataFileRespository.findAll(spec, pageRequest);
 
         List<UploadedFile> items = page.getContent().stream().map(this::toDomain).toList();
         return new PageResult<>(items, query.page(), query.pageSize(), page.getTotalElements());
+    }
+
+    @Override
+    public long countAll() {
+        return springDataFileRespository.count();
+    }
+
+    @Override
+    public long sumSizeBytes() {
+        return springDataFileRespository.sumSizeBytes();
+    }
+
+    @Override
+    public List<UploadedFile> findUploadedSince(Instant since) {
+        return springDataFileRespository.findByUploadedAtGreaterThanEqual(since).stream().map(this::toDomain).toList();
+    }
+
+    private Sort resolveSort(FileQuery query) {
+        if (query.sortBy() == null) {
+            return Sort.by(Sort.Direction.DESC, "uploadedAt");
+        }
+
+        String property = switch (query.sortBy()) {
+            case DISPLAY_NAME -> "displayName";
+            case SIZE_BYTES -> "sizeBytes";
+            case UPLOADED_AT -> "uploadedAt";
+        };
+        Sort.Direction direction = query.sortDir() == SortDirection.ASC ? Sort.Direction.ASC : Sort.Direction.DESC;
+        return Sort.by(direction, property);
     }
 
     private Specification<JpaFileEntity> visibleTo(UUID requesterId) {
@@ -84,5 +116,4 @@ public class FileRepositoryAdapter implements FileRepository {
                 FileCategory.valueOf(entity.getCategory()), FileVisibility.valueOf(entity.getVisibility()),
                 entity.getTags(), entity.getNotes(), entity.getUploadedAt());
     }
-
 }

@@ -11,6 +11,7 @@ import io.clouddesk.files.application.FileStorage;
 import io.clouddesk.files.application.ListFileService;
 import io.clouddesk.files.application.UploadFileService;
 import io.clouddesk.files.domain.FileRepository;
+import io.clouddesk.shared.events.DomainEventPublisher;
 
 @Configuration
 @EnableConfigurationProperties(FilesProperties.class)
@@ -18,8 +19,9 @@ public class FilesBeanConfig {
 
     @Bean
     public UploadFileService uploadFileService(FileRepository fileRepository, FileStorage fileStorage, Clock clock,
-            FilesProperties filesProperties) {
-        return new UploadFileService(fileRepository, fileStorage, clock, filesProperties.maxUploadSizeBytes());
+            FilesProperties filesProperties, DomainEventPublisher domainEventPublisher) {
+        return new UploadFileService(fileRepository, fileStorage, clock, filesProperties.maxUploadSizeBytes(),
+                domainEventPublisher);
     }
 
     @Bean

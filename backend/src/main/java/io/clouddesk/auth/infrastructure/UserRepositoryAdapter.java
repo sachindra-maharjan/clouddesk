@@ -22,6 +22,11 @@ public class UserRepositoryAdapter implements UserRepository {
         return repository.findByEmail(email).map(this::toDomain);
     }
 
+    @Override
+    public long countAll() {
+        return repository.count();
+    }
+
     private User toDomain(JpaUserEntity entity) {
         return new User(
                 entity.getId(),

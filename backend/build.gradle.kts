@@ -41,6 +41,10 @@ dependencies {
     // Observability
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 
+    // Web Socket
+    implementation("org.springframework.boot:spring-boot-starter-websocket")
+  
+
     // Lombok-free: Java 25 records + pattern matching used instead
 
     // Test
@@ -50,6 +54,7 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter:1.20.4")
     testImplementation("org.testcontainers:postgresql:1.20.4")
     testImplementation("io.rest-assured:rest-assured:5.5.0")
+    testImplementation("org.springframework.boot:spring-boot-starter-websocket-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

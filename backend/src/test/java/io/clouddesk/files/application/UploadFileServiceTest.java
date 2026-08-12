@@ -2,6 +2,7 @@ package io.clouddesk.files.application;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -19,8 +20,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import io.clouddesk.files.domain.FileCategory;
 import io.clouddesk.files.domain.FileRepository;
+import io.clouddesk.files.domain.FileUploadedEvent;
 import io.clouddesk.files.domain.FileVisibility;
 import io.clouddesk.files.domain.UploadedFile;
+import io.clouddesk.shared.events.DomainEventPublisher;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -34,6 +37,8 @@ public class UploadFileServiceTest {
     FileRepository fileRepository;
     @Mock
     FileStorage fileStorage;
+    @Mock
+    DomainEventPublisher domainEventPublisher;
     UploadFileService uploadFileService;
 
     final Instant fixedNow = Instant.parse("2026-07-27T09:00:00Z");
@@ -42,7 +47,8 @@ public class UploadFileServiceTest {
     @BeforeEach
     void setup() {
         Clock clock = Clock.fixed(fixedNow, ZoneOffset.UTC);
-        uploadFileService = new UploadFileService(fileRepository, fileStorage, clock, MAX_UPLOAD_SIZE_BYTES);
+        uploadFileService = new UploadFileService(fileRepository, fileStorage, clock, MAX_UPLOAD_SIZE_BYTES,
+                domainEventPublisher);
     }
 
     private UploadFileCommand validCommand(byte[] content) {
@@ -117,6 +123,25 @@ public class UploadFileServiceTest {
 
         assertThat(result.tags()).isEmpty();
         assertThat(result.notes()).isEmpty();
+    }
+
+    @Test
+    void publishesAFileUploadedEventOnSuccess() {
+        when(fileStorage.store(any(), any())).thenReturn(new StoredFile("2026/07/abc123-board-deck.pptx", 1024));
+        when(fileRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
+
+        uploadFileService.upload(validCommand(new byte[1024]));
+
+        verify(domainEventPublisher).publish(new FileUploadedEvent(
+                "Q3 board deck", "Maria Alvarez", FileCategory.PRESENTATION, 1024, fixedNow));
+    }
+
+    @Test
+    void doesNotPublishAnEventWhenValidationFails() {
+        assertThatThrownBy(() -> uploadFileService.upload(validCommand(new byte[0])))
+                .isInstanceOf(InvalidFileMetadataException.class);
+
+        verify(domainEventPublisher, never()).publish(any());
     }
 
 }
