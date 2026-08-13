@@ -9,6 +9,8 @@ export interface ListFilesParams {
     filters: FileListFilters;
     page: number;
     pageSize: number;
+    sortBy?: string;
+    sortDir?: string;
 }
 
 @Service()
@@ -39,6 +41,12 @@ export class Files {
         }
         if (params.filters.category != 'ALL') {
             httpParams = httpParams.set('category', params.filters.category);
+        }
+        if (params.sortBy) {
+            httpParams = httpParams.set('sortBy', params.sortBy);
+        }
+        if (params.sortDir) {
+            httpParams = httpParams.set('sortDir', params.sortDir);
         }
 
         return this.http.get<FilePage>(`${environment.apiUrl}/files`, { params: httpParams });
