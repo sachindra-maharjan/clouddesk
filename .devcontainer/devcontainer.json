@@ -3,9 +3,18 @@
     "build": {
         "dockerfile": "Dockerfile"
     },
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "version": "latest",
+            "moby": true,
+            "enableNonRootDocker": true
+        }
+    },
     "hostRequirements": {
         "cpus": 4
     },
+    "privileged": true,
+    "remoteUser": "vscode",
     "remoteEnv": {},
     "postCreateCommand": "/bin/bash -c .devcontainer/scripts/post-create.sh",
     "postStartCommand": "/bin/bash -c .devcontainer/scripts/post-start.sh",
