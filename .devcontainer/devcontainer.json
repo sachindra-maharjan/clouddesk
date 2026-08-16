@@ -1,0 +1,39 @@
+{
+    "name": "dev-environment",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "enableNonRootDocker": "true",
+            "moby": "true"
+        }
+    },
+    "hostRequirements": {
+        "cpus": 4
+    },
+    "remoteEnv": {},
+    "postCreateCommand": "/bin/bash -c .devcontainer/scripts/post-create.sh",
+    "postStartCommand": "/bin/bash -c .devcontainer/scripts/post-start.sh",
+    "forwardPorts": [
+        4200
+    ],
+    "portsAttributes": {
+        "4200": {
+            "label": "Clouddesk",
+            "protocol": "https"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "streetsidesoftware.code-spell-checker",
+                "streetsidesoftware.code-spell-checker-british-english",
+                "Github.copilot",
+                "editorconfig.editorconfig",
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode"
+            ]
+        }
+    }
+}
