@@ -16,6 +16,9 @@ backend/build
 backend/.gradle
 backend/data
 
+# Database
+clouddesk-db
+
 # AI 
 superpowers
 .agents
