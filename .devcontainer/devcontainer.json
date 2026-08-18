@@ -1,8 +1,8 @@
 {
     "name": "dev-environment",
-    // "build": {
-    //     "dockerfile": "Dockerfile"
-    // },
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
     "features": {
         "ghcr.io/devcontainers/features/docker-in-docker:2": {
             "version": "latest",
