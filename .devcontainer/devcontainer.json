@@ -25,11 +25,11 @@
     "portsAttributes": {
         "4200": {
             "label": "frontend",
-            "protocol": "https"
+            "protocol": "http"
         },
         "8080": {
             "label": "backend",
-            "protocol": "https"
+            "protocol": "http"
         }
     },
     "customizations": {

@@ -1,12 +1,11 @@
 services:
   postgres:
     image: postgres:16-alpine
+    network_mode: host
     environment:
       POSTGRES_DB: clouddesk
       POSTGRES_USER: clouddesk
       POSTGRES_PASSWORD: clouddesk
-    ports:
-      - "5432:5432"
     volumes:
       - ./clouddesk-db:/var/lib/postgresql/data
     healthcheck:
@@ -16,22 +15,23 @@ services:
       retries: 10
 
   backend:
-    build: ./backend
+    build: ./app/backend
+    network_mode: host
     environment:
-      DB_HOST: postgres
+      DB_HOST: localhost
       DB_PORT: 5432
       DB_NAME: clouddesk
       DB_USER: clouddesk
       DB_PASSWORD: clouddesk
       JWT_SECRET: local-dev-secret-change-in-real-envs
-    ports:
-      - "8080:8080"
     depends_on:
       postgres:
         condition: service_healthy
 
   frontend:
-    build: ./frontend
+    build: ./app/frontend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "4200:80"
     depends_on:
