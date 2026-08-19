@@ -1,0 +1,8 @@
+database:
+  name: appdb
+  user: appuser
+secret:
+  name: postgres-secret
+  password: dev-password-change-me
+storage:
+  size: 2Gi

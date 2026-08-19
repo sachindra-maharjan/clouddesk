@@ -1,0 +1,3 @@
+Backend:
+  kubectl get pods -l app.kubernetes.io/name=backend
+  kubectl get svc {{ include "backend.fullname" . }}-svc

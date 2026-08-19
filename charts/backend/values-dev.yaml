@@ -1,0 +1,9 @@
+replicaCount: 2
+image:
+  repository: clouddesk/backend
+  tag: v1
+config:
+  APP_VERSION: v1
+  APP_ENV: development
+autoscaling:
+  enabled: false

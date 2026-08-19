@@ -1,0 +1,29 @@
+replicaCount: 1
+
+image:
+  repository: postgres
+  tag: 16-alpine
+  pullPolicy: IfNotPresent
+
+database:
+  name: appdb
+  user: appuser
+
+secret:
+  name: postgres-secret
+  password: dev-password-change-me
+
+storage:
+  size: 2Gi
+  accessMode: ReadWriteOnce
+
+service:
+  port: 5432
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 1Gi

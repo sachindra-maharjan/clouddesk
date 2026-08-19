@@ -1,10 +1,5 @@
-# !/bin/bash
-
-echo "Executing post-start.sh script"
-
-workspaceFolder="/workspaces/clouddesk"
-
-command "bash ${workspaceFolder}/scripts/create-cluster.sh"
-
-echo "Exiting post-start.sh script"
-exit 0
+#!/usr/bin/env bash
+set -euo pipefail
+kind create cluster --config kind/kind-config.yaml
+kubectl cluster-info --context kind-clouddesk
+kubectl get nodes -o wide
