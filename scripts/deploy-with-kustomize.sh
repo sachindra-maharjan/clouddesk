@@ -1,6 +1,7 @@
 set -euo pipefail
 
 ./scripts/render-helm.sh
+kubectl apply -f apps/base/namespace.yaml
 kubectl apply -k apps/overlays/dev
 kubectl get all -n clouddesk
 kubectl get pvc -n clouddesk

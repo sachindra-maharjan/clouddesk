@@ -1,3 +1,5 @@
+fullnameOverride: clouddesk-backend
+
 replicaCount: 2
 image:
   repository: clouddesk/backend

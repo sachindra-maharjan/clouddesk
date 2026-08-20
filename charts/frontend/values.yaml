@@ -1,3 +1,5 @@
+fullnameOverride: cloudesk-frontend
+
 replicaCount: 2
 
 image:

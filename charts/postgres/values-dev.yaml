@@ -1,3 +1,5 @@
+fullnameOverride: cloudesk-postgres
+
 database:
   name: appdb
   user: appuser

@@ -23,3 +23,6 @@ clouddesk-db
 superpowers
 .agents
 .claude
+
+# Helm
+apps/overlays/**/rendered
