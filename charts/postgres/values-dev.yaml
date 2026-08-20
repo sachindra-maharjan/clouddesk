@@ -1,5 +1,9 @@
 fullnameOverride: cloudesk-postgres
 
+image:
+  repository: clouddesk/postgres
+  tag: 16-alpine-kind
+
 database:
   name: appdb
   user: appuser
