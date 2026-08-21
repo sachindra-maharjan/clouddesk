@@ -1,4 +1,4 @@
-fullnameOverride: cloudesk-postgres
+fullnameOverride: clouddesk-postgres
 
 image:
   repository: clouddesk/postgres

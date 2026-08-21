@@ -13,4 +13,7 @@ RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
     golang-go \
+    openjdk-25-jdk \
+    nodejs \
+    npm \
     && rm -rf /var/lib/apt/lists/*

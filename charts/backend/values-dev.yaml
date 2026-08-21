@@ -7,5 +7,10 @@ image:
 config:
   APP_VERSION: v1
   APP_ENV: development
+database:
+  host: clouddesk-postgres.clouddesk.svc.cluster.local
+  port: 5432
+secret:
+  jwt: dev-jwt-secret-change-me-0123456789abcdef
 autoscaling:
   enabled: false

@@ -1,4 +1,4 @@
-  fullnameOverride: cloudesk-frontend
+  fullnameOverride: clouddesk-frontend
 
 replicaCount: 2
 image:

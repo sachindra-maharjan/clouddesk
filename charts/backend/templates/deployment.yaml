@@ -27,8 +27,21 @@ spec:
         envFrom:
         - configMapRef:
             name: {{ include "backend.fullname" . }}-config
+        - secretRef:
+            name: {{ .Values.secret.existingSecret | default "backend-secret" }}
+        env:
+        - name: DB_HOST
+          value: {{ required "database.host is required" .Values.database.host }}
+        - name: DB_PORT
+          value: {{ .Values.database.port | default 5432 | quote }}
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.probes.readiness.path }}
+            port: http
+          periodSeconds: 5
+          failureThreshold: 60
         readinessProbe:
           httpGet:
             path: {{ .Values.probes.readiness.path }}

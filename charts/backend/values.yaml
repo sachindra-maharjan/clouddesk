@@ -39,10 +39,10 @@ resources:
 
 probes:
   readiness:
-    path: /health
+    path: /actuator/health
     initialDelaySeconds: 2
     periodSeconds: 5
   liveness:
-    path: /health
+    path: /actuator/health
     initialDelaySeconds: 5
     periodSeconds: 10

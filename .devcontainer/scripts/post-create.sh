@@ -110,10 +110,15 @@ install_kustomize() {
     echo "kustomize successfully installed."
 }
 
+install_opencode(){
+    curl -fsSL https://opencode.ai/install | bash
+}
+
 install_kubectl
 install_kind
 install_helm
 install_kustomize
+install_opencode
 
 echo "Exiting post-create.sh script"
 exit 0
